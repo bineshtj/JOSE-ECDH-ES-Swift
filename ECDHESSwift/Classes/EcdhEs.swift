@@ -15,10 +15,6 @@ internal enum ECDHError: Error {
     case invalidKeyDerivationSize
 }
 
-public typealias HashFunc = () -> Data
-
-typealias DigestFunc = (UnsafeRawPointer?, UInt32, UnsafeMutablePointer<UInt8>?) -> UnsafeMutablePointer<UInt8>?
-
 public enum KDFHash: String {
     case SHA256 = "SHA-256"
     case SHA384 = "SHA-384"
@@ -57,19 +53,6 @@ public enum KDFHash: String {
     }
     
 }
-
-/**
- Derive ECDH Key Data
- 
- - Parameter algorithmID: EC private JWK
- **/
-public typealias OtherInfo = (
-    algorithmID: Data,
-    partyUInfo: Data,
-    partyVInfo: Data,
-    suppPubInfo: Data?,
-    suppPrivInfo: Data?
-)
 
 /**
  Derive ECDH Key Data
@@ -157,7 +140,7 @@ public func concatKDF(
     }
     let modLen = keyDataLen % hash.bitLength
     let reps = (keyDataLen / hash.bitLength) + (modLen > 0 ? 1 :0 )
-    if reps > 0x7FFFFFFF { // according to [NIST.SP.800-56A] it should be (2^32 −1), But it will overflow Int
+    if reps > 0xFFFFFFF { // according to [NIST.SP.800-56A] it should be (2^32 −1), But it will overflow Int
         throw ECDHError.invalidKeyDerivationSize
     }
     let concatedData = z + algorithmID + partyUInfo + partyVInfo + suppPubInfo + suppPrivInfo
