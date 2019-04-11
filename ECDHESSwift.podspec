@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'ECDHESSwift'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of ECDHESSwift.'
+  s.summary          = 'JOSE ECDH-ES 系列 Swift lib'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,18 +18,18 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+Extend JOSESwift 實作 JOSE ECDH-ES 系列 Swift lib
                        DESC
 
-  s.homepage         = 'https://github.com/jack.k.zhu@gmail.com/ECDHESSwift'
+  s.homepage         = 'https://github.com/104corp/JOSE-ECDH-ES-Swift'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'jack.k.zhu@gmail.com' => 'mfantcy@gmail.com' }
-  s.source           = { :git => 'https://github.com/jack.k.zhu@gmail.com/ECDHESSwift.git', :tag => s.version.to_s }
+  s.author           = { 'jack.zhu@104.com.tw' => 'mfantcy@gmail.com' }
+  s.source           = { :git => 'https://github.com/104corp/JOSE-ECDH-ES-Swift.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
-
+  s.ios.deployment_target = '10.0'
+  s.swift_version = '5.0'
   s.source_files = 'ECDHESSwift/Classes/**/*'
   
   # s.resource_bundles = {
@@ -38,5 +38,5 @@ TODO: Add long description of the pod here.
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.dependency 'JOSESwift', '~> 1.8'
 end

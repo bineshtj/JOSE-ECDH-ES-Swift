@@ -1,7 +1,9 @@
+platform :ios, '10.0'
 use_frameworks!
 
 target 'ECDHESSwift_Example' do
   pod 'ECDHESSwift', :path => '../'
+  pod 'JOSESwift', '~> 1.8'
 
   target 'ECDHESSwift_Tests' do
     inherit! :search_paths

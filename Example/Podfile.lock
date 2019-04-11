@@ -1,0 +1,32 @@
+PODS:
+  - ECDHESSwift (0.1.0):
+    - JOSESwift (~> 1.8)
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
+  - JOSESwift (1.8.0)
+
+DEPENDENCIES:
+  - ECDHESSwift (from `../`)
+  - FBSnapshotTestCase (~> 2.1.4)
+  - JOSESwift (~> 1.8)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - FBSnapshotTestCase
+    - JOSESwift
+
+EXTERNAL SOURCES:
+  ECDHESSwift:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  ECDHESSwift: d1311332b65b10b0b2fadf4cc9115aedcf4730eb
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
+  JOSESwift: 39419bb87494bd58d4f14e1a3e3d6615945c80dd
+
+PODFILE CHECKSUM: ecec035c5cbfed9d6f216d9c05ff2fdbd0b6e2fe
+
+COCOAPODS: 1.7.0.beta.3
