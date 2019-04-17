@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ECDHESSwift'
-  s.version          = '0.0.1'
+  s.version          = '0.0.2'
   s.summary          = 'JOSE ECDH-ES 系列 Swift lib'
 
 # This description is used to generate tags and improve search results.
@@ -29,7 +29,7 @@ Extend JOSESwift 實作 JOSE ECDH-ES 系列 Swift lib
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'
-  s.swift_version = '5.0'
+   s.swift_version = "4.2"
   s.source_files = 'ECDHESSwift/Classes/**/*'
   
   # s.resource_bundles = {
