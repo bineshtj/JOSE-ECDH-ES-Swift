@@ -3,5 +3,5 @@ xcodeproj: Example/ECDHESSwift.xcodeproj
 workspace: Example/ECDHESSwift.xcworkspace
 scheme: ECDHESSwift-Example
 output_directory: reports
-ignore:
-  - Example/*
+#ignore:
+#  - Example/*

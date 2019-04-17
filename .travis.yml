@@ -13,7 +13,6 @@ cache: cocoapods
 podfile: Example/Podfile
 
 before_install:
- - gem install slather
  - gem install xcpretty       
  - gem install cocoapods
  - pod install --project-directory=Example
@@ -23,5 +22,4 @@ script:
  - pod lib lint
 
 after_success:
-  - slather
-  - bash <(curl -s https://codecov.io/bash) -f reports/cobertura.xml -X coveragepy -X gcov -X xcode
+ - bash <(curl -s https://codecov.io/bash) -J 'ECDHESSwift'

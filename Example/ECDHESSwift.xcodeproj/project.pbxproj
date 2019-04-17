@@ -15,7 +15,7 @@
 		607FACEC1AFB9204008FA782 /* EcJwkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* EcJwkTests.swift */; };
 		7E2EFB10C53CCA1AD5C053F0 /* Pods_ECDHESSwift_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B8BE9C42D647F0B228B37861 /* Pods_ECDHESSwift_Example.framework */; };
 		9E0FEC7222658E090018ACB3 /* KeyWrapSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0FEC7122658E090018ACB3 /* KeyWrapSpec.swift */; };
-		9E2C4D4822661D3500776029 /* ECDHESJWEHeaderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2C4D4722661D3500776029 /* ECDHESJWEHeaderSpec.swift */; };
+		9E2C4D4822661D3500776029 /* EcdhEsJweHeaderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2C4D4722661D3500776029 /* EcdhEsJweHeaderSpec.swift */; };
 		9E34C0B3226715670067C95B /* EcdhJweSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E34C0B2226715670067C95B /* EcdhJweSpec.swift */; };
 		9E34C0B5226716690067C95B /* ietf-jose-cookbook-fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E34C0B4226716690067C95B /* ietf-jose-cookbook-fixtures.swift */; };
 		A656246F225EEE88008E5F5F /* TestingUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A656246E225EEE88008E5F5F /* TestingUtils.swift */; };
@@ -51,7 +51,7 @@
 		61A1518817379DDD613DBC58 /* Pods-ECDHESSwift_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ECDHESSwift_Example.release.xcconfig"; path = "Target Support Files/Pods-ECDHESSwift_Example/Pods-ECDHESSwift_Example.release.xcconfig"; sourceTree = "<group>"; };
 		7C77A2CA29BDC2D374691FA1 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		9E0FEC7122658E090018ACB3 /* KeyWrapSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyWrapSpec.swift; sourceTree = "<group>"; };
-		9E2C4D4722661D3500776029 /* ECDHESJWEHeaderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ECDHESJWEHeaderSpec.swift; sourceTree = "<group>"; };
+		9E2C4D4722661D3500776029 /* EcdhEsJweHeaderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EcdhEsJweHeaderSpec.swift; sourceTree = "<group>"; };
 		9E34C0B2226715670067C95B /* EcdhJweSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcdhJweSpec.swift; sourceTree = "<group>"; };
 		9E34C0B4226716690067C95B /* ietf-jose-cookbook-fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ietf-jose-cookbook-fixtures.swift"; sourceTree = "<group>"; };
 		A656246E225EEE88008E5F5F /* TestingUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingUtils.swift; sourceTree = "<group>"; };
@@ -127,7 +127,7 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				9E2C4D4722661D3500776029 /* ECDHESJWEHeaderSpec.swift */,
+				9E2C4D4722661D3500776029 /* EcdhEsJweHeaderSpec.swift */,
 				607FACEB1AFB9204008FA782 /* EcJwkTests.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 				A656246E225EEE88008E5F5F /* TestingUtils.swift */,
@@ -390,7 +390,7 @@
 				9E34C0B3226715670067C95B /* EcdhJweSpec.swift in Sources */,
 				A656246F225EEE88008E5F5F /* TestingUtils.swift in Sources */,
 				607FACEC1AFB9204008FA782 /* EcJwkTests.swift in Sources */,
-				9E2C4D4822661D3500776029 /* ECDHESJWEHeaderSpec.swift in Sources */,
+				9E2C4D4822661D3500776029 /* EcdhEsJweHeaderSpec.swift in Sources */,
 				9E0FEC7222658E090018ACB3 /* KeyWrapSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

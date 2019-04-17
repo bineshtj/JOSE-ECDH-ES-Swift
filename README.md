@@ -5,11 +5,10 @@
 [![License](https://img.shields.io/cocoapods/l/ECDHESSwift.svg?style=flat)](https://cocoapods.org/pods/ECDHESSwift)
 [![Platform](https://img.shields.io/cocoapods/p/ECDHESSwift.svg?style=flat)](https://cocoapods.org/pods/ECDHESSwift)
 
-## Example
-
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
+
+- JOSESwift 1.8
 
 ## Installation
 
@@ -20,9 +19,15 @@ it, simply add the following line to your Podfile:
 pod 'ECDHESSwift'
 ```
 
+## Usage
+
+```swift
+
+```
+
 ## Author
 
-jack.k.zhu@gmail.com, mfantcy@gmail.com
+MFantcy mfantcy@gmail.com
 
 ## License
 

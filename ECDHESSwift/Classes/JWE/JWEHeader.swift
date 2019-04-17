@@ -16,5 +16,5 @@ public protocol JSONWebEncryptionHeader {
     var apv: String? { get }
     subscript(index: String) -> Any? { get }
     func jsonSerializedData() -> Data
-    func allParameters() -> [String:Any]
+    func allParameters() -> [String: Any]
 }

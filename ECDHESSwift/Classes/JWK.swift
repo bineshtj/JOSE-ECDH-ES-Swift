@@ -30,6 +30,17 @@ public extension ECPrivateKey {
     func getPublic() -> ECPublicKey {
         return ECPublicKey(crv: crv, x: x, y: y, additionalParameters: parameters)
     }
+
+    func isCorrespondWith(_ key: ECPublicKey) -> Bool {
+        guard
+            crv == key.crv,
+            x == key.x,
+            y == key.y
+        else {
+            return false
+        }
+        return true
+    }
 }
 
 public extension ECKeyPair {

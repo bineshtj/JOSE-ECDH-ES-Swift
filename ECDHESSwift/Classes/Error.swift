@@ -14,6 +14,7 @@ internal enum ECDHEESError: Error {
     case invalidEncryptionIVSize
     case invalidHeaderParameter(param: String)
     case invalidJsonData
+    case invalidBase64URLEncoded
     case invalidCompactSerializedData
     case unknownOrUnsupportedAlgorithm(reason: String)
     case invalidJWK(reason: String)

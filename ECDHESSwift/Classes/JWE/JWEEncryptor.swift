@@ -27,14 +27,20 @@ class EcdhEsEncryptor: JWEEncryptor {
     
     internal var createECKeyPair: (_ curveType: ECCurveType) throws -> ECKeyPair = generateECKeyPair
     
+    internal func guardAlgorithm(_ header: JSONWebEncryptionHeader) throws -> (EcdhEsAlgorithm, EncryptionAlgorithm) {
+        guard let alg = EcdhEsAlgorithm(rawValue: header.alg) else {
+            throw ECDHEESError.unknownOrUnsupportedAlgorithm(reason: "alg: \(header.alg)")
+        }
+        
+        guard let enc = EncryptionAlgorithm(rawValue: header.enc) else {
+            throw ECDHEESError.unknownOrUnsupportedAlgorithm(reason: "enc: \(header.enc)")
+        }
+        return (alg, enc)
+    }
+    
     func encrypt(plaintext: Data, key: JWK, header: JSONWebEncryptionHeader, options: [String : Any] = [:]) throws -> (header: JSONWebEncryptionHeader, encryptedKey: Data, iv: Data, ciphertext: Data, tag: Data) {
         
-        guard
-            let alg = EcdhEsAlgorithm(rawValue: header.alg),
-            let enc = EncryptionAlgorithm(rawValue: header.enc)
-        else {
-            throw ECDHEESError.unknownOrUnsupportedAlgorithm(reason: "alg: \(header.alg), enc: \(header.enc)")
-        }
+        let (alg, enc) = try guardAlgorithm(header)
         
         guard let staticPubKey = key as? ECPublicKey else {
             throw ECDHEESError.invalidJWK(reason: "key must be an ECPublicKey")
@@ -46,6 +52,7 @@ class EcdhEsEncryptor: JWEEncryptor {
         } else {
             ephemeralKeyPair = try createECKeyPair(staticPubKey.crv)
         }
+        
         let apu = Data(base64Encoded: header.apu ?? "") ?? Data()
         let apv = Data(base64Encoded: header.apv ?? "") ?? Data()
         
@@ -64,9 +71,10 @@ class EcdhEsEncryptor: JWEEncryptor {
         }
 
         let iv = options["iv"] as? Data ?? getRandomBytes(enc.ivSize / 8)
-        
         var resHeader = try EcdhEsJweHeader(cloneFrom: header)
-        resHeader.epk = ephemeralKeyPair.getPublic()
+        if header.epk == nil || !ephemeralKeyPair.getPrivate().isCorrespondWith(header.epk!) {
+            resHeader.epk = ephemeralKeyPair.getPublic()
+        }
         
         var aad = resHeader.jsonSerializedData().base64URLEncodedData()
         if let extAad = options["aad"] as? Data {
@@ -81,12 +89,7 @@ class EcdhEsEncryptor: JWEEncryptor {
     
     func decrypt(key: JWK, header: JSONWebEncryptionHeader, encryptedKey: Data, iv: Data, ciphertext: Data, tag: Data, aad: Data = Data()) throws -> Data {
         
-        guard
-            let alg = EcdhEsAlgorithm(rawValue: header.alg),
-            let enc = EncryptionAlgorithm(rawValue: header.enc)
-            else {
-                throw ECDHEESError.unknownOrUnsupportedAlgorithm(reason: "alg: \(header.alg), enc: \(header.enc)")
-        }
+        let (alg, enc) = try guardAlgorithm(header)
         
         guard let staticPrivKey = key as? ECPrivateKey else {
             throw ECDHEESError.invalidJWK(reason: "key must be an ECPrivateKey")

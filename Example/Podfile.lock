@@ -1,6 +1,6 @@
 PODS:
   - CryptoSwift (1.0.0)
-  - ECDHESSwift (0.0.1):
+  - ECDHESSwift (0.0.2):
     - CryptoSwift (~> 1.0.0)
     - JOSESwift (~> 1.8)
   - FBSnapshotTestCase (2.1.4):
@@ -34,7 +34,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
-  ECDHESSwift: 46fdaffc78182460175386aef20c603485c15cb7
+  ECDHESSwift: 33b38ab12014728aab772d746b280df26bf259d7
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   JOSESwift: 39419bb87494bd58d4f14e1a3e3d6615945c80dd
   Nimble: 45f786ae66faa9a709624227fae502db55a8bdd0

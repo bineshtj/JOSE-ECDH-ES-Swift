@@ -38,3 +38,5 @@ Carthage/Build
 Pods/
 .idea/
 reports/
+*.coverage
+*.coverage.*

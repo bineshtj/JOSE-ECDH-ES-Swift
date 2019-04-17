@@ -24,12 +24,12 @@ Extend JOSESwift 實作 JOSE ECDH-ES 系列 Swift lib
   s.homepage         = 'https://github.com/104corp/JOSE-ECDH-ES-Swift'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'jack.zhu@104.com.tw' => 'mfantcy@gmail.com' }
+  s.author           = { 'MFantcy' => 'mfantcy@gmail.com' }
   s.source           = { :git => 'https://github.com/104corp/JOSE-ECDH-ES-Swift.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '10.0'
-   s.swift_version = "4.2"
+  s.swift_version = "4.2"
   s.source_files = 'ECDHESSwift/Classes/**/*'
   
   # s.resource_bundles = {
