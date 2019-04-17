@@ -6,7 +6,7 @@ env:
   matrix:
     - TEST_SDK=iphonesimulator12.2 OS=12.2 NAME='iPhone XR'
     - TEST_SDK=iphonesimulator12.2 OS=10.0 NAME='iPhone 6s Plus'
-    - TEST_SDK=iphonesimulator12.2 OS=10.0 NAME='iPhone 5'
+    - TEST_SDK=iphonesimulator12.2 OS=10.0 NAME='iPhone 5s'
 
 cache: cocoapods
 
