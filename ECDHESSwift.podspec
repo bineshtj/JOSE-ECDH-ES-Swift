@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ECDHESSwift'
-  s.version          = '0.1.0'
+  s.version          = '0.0.1'
   s.summary          = 'JOSE ECDH-ES 系列 Swift lib'
 
 # This description is used to generate tags and improve search results.
@@ -39,4 +39,5 @@ Extend JOSESwift 實作 JOSE ECDH-ES 系列 Swift lib
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'JOSESwift', '~> 1.8'
+  s.dependency 'CryptoSwift', '~> 1.0.0'
 end

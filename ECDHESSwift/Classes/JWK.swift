@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import Security
 import JOSESwift
+import Security
 
 public extension ECCurveType {
     var bitLength: Int {
@@ -28,7 +28,7 @@ enum EcKeyError: Error {
 
 public extension ECPrivateKey {
     func getPublic() -> ECPublicKey {
-        return ECPublicKey(crv: self.crv, x: self.x, y: self.y, additionalParameters: self.parameters)
+        return ECPublicKey(crv: crv, x: x, y: y, additionalParameters: parameters)
     }
 }
 
@@ -37,7 +37,6 @@ public extension ECKeyPair {
         return self as ECPrivateKey
     }
 }
-
 
 public func generateECKeyPair(curveType: ECCurveType) throws -> ECKeyPair {
     let attributes: [String: Any] = [kSecAttrKeySizeInBits as String: curveType.bitLength,

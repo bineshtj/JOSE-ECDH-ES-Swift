@@ -4,10 +4,13 @@ use_frameworks!
 target 'ECDHESSwift_Example' do
   pod 'ECDHESSwift', :path => '../'
   pod 'JOSESwift', '~> 1.8'
+  pod 'CryptoSwift', '~> 1.0.0'
 
   target 'ECDHESSwift_Tests' do
     inherit! :search_paths
 
     pod 'FBSnapshotTestCase' , '~> 2.1.4'
+    pod 'Nimble', '~> 8.0.1'
+    pod 'Quick', '~> 2.0.0'
   end
 end

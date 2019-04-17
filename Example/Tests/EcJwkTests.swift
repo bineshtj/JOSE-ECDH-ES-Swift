@@ -7,7 +7,7 @@
 
 import XCTest
 import JOSESwift
-import ECDHESSwift
+@testable import ECDHESSwift
 
 class EcJwkTests: XCTestCase {
     override func setUp() {

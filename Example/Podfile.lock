@@ -1,5 +1,7 @@
 PODS:
-  - ECDHESSwift (0.1.0):
+  - CryptoSwift (1.0.0)
+  - ECDHESSwift (0.0.1):
+    - CryptoSwift (~> 1.0.0)
     - JOSESwift (~> 1.8)
   - FBSnapshotTestCase (2.1.4):
     - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
@@ -7,26 +9,37 @@ PODS:
   - FBSnapshotTestCase/SwiftSupport (2.1.4):
     - FBSnapshotTestCase/Core
   - JOSESwift (1.8.0)
+  - Nimble (8.0.1)
+  - Quick (2.0.0)
 
 DEPENDENCIES:
+  - CryptoSwift (~> 1.0.0)
   - ECDHESSwift (from `../`)
   - FBSnapshotTestCase (~> 2.1.4)
   - JOSESwift (~> 1.8)
+  - Nimble (~> 8.0.1)
+  - Quick (~> 2.0.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - CryptoSwift
     - FBSnapshotTestCase
     - JOSESwift
+    - Nimble
+    - Quick
 
 EXTERNAL SOURCES:
   ECDHESSwift:
     :path: "../"
 
 SPEC CHECKSUMS:
-  ECDHESSwift: d1311332b65b10b0b2fadf4cc9115aedcf4730eb
+  CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
+  ECDHESSwift: 7bde219a72b5c72e48236e35dc97198d21137fe1
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
   JOSESwift: 39419bb87494bd58d4f14e1a3e3d6615945c80dd
+  Nimble: 45f786ae66faa9a709624227fae502db55a8bdd0
+  Quick: ce1276c7c27ba2da3cb2fd0cde053c3648b3b22d
 
-PODFILE CHECKSUM: ecec035c5cbfed9d6f216d9c05ff2fdbd0b6e2fe
+PODFILE CHECKSUM: 466ce3f4e14586e2adb13c6c0ec00930547249bf
 
-COCOAPODS: 1.7.0.beta.3
+COCOAPODS: 1.6.1

@@ -46,7 +46,7 @@
       <CodeCoverageTargets>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "92529A7DE30EDBDF2705A28AB8E622FD"
+            BlueprintIdentifier = "C12315E90E7B68AA214D83C6B103306B"
             BuildableName = "ECDHESSwift.framework"
             BlueprintName = "ECDHESSwift"
             ReferencedContainer = "container:Pods/Pods.xcodeproj">
