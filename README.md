@@ -1,6 +1,7 @@
 # ECDHESSwift
 
 [![CI Status](https://travis-ci.com/104corp/JOSE-ECDH-ES-Swift.svg?branch=master&style=flat)](https://travis-ci.com/104corp/JOSE-ECDH-ES-Swift)
+[![codecov](https://codecov.io/gh/104corp/JOSE-ECDH-ES-Swift/branch/master/graph/badge.svg)](https://codecov.io/gh/104corp/JOSE-ECDH-ES-Swift)
 [![Version](https://img.shields.io/cocoapods/v/ECDHESSwift.svg?style=flat)](https://cocoapods.org/pods/ECDHESSwift)
 [![License](https://img.shields.io/cocoapods/l/ECDHESSwift.svg?style=flat)](https://cocoapods.org/pods/ECDHESSwift)
 [![Platform](https://img.shields.io/cocoapods/p/ECDHESSwift.svg?style=flat)](https://cocoapods.org/pods/ECDHESSwift)
