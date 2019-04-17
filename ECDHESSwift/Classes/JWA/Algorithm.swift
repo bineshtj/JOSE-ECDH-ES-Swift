@@ -19,7 +19,7 @@ extension KeySizeKnowable {
     }
 }
 
-enum KeyWrapAlgorithm: String, KeySizeKnowable {
+enum KeyWrapAlgorithm: String, KeySizeKnowable, CaseIterable {
     case A128KW = "A128KW"
     case A192KW = "A192KW"
     case A256KW = "A256KW"
@@ -45,7 +45,7 @@ enum KeyWrapAlgorithm: String, KeySizeKnowable {
     }
 }
 
-enum EncryptionAlgorithm: String, KeySizeKnowable {
+enum EncryptionAlgorithm: String, KeySizeKnowable, CaseIterable {
     case A128GCM = "A128GCM"
     case A192GCM = "A192GCM"
     case A256GCM = "A256GCM"
@@ -97,7 +97,7 @@ enum EncryptionAlgorithm: String, KeySizeKnowable {
     }
 }
 
-enum EcdhEsAlgorithm: String {
+enum EcdhEsAlgorithm: String, CaseIterable {
     case ECDH_ES = "ECDH-ES"
     case ECDH_ES_A128KW = "ECDH-ES+A128KW"
     case ECDH_ES_A192KW = "ECDH-ES+A192KW"

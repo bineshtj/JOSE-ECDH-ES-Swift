@@ -17,5 +17,4 @@ internal enum ECDHEESError: Error {
     case invalidCompactSerializedData
     case unknownOrUnsupportedAlgorithm(reason: String)
     case invalidJWK(reason: String)
-    
 }

@@ -63,12 +63,19 @@ class EcdhEsEncryptor: JWEEncryptor {
             encryptedKey = Data()
         }
 
-        let add = options["aad"] as? Data ?? Data()
         let iv = options["iv"] as? Data ?? getRandomBytes(enc.ivSize / 8)
-        let (ciphertext, tag) = try enc.encrypt(plaintext: plaintext, key: cek, iv: iv, tagLen: enc.tagLength / 8, aad: add)
         
         var resHeader = try EcdhEsJweHeader(cloneFrom: header)
         resHeader.epk = ephemeralKeyPair.getPublic()
+        
+        var aad = resHeader.jsonSerializedData().base64URLEncodedData()
+        if let extAad = options["aad"] as? Data {
+            aad += ".".data(using: .ascii)! + extAad
+        }
+        aad += options["aad"] as? Data ?? Data()
+        
+        let (ciphertext, tag) = try enc.encrypt(plaintext: plaintext, key: cek, iv: iv, tagLen: enc.tagLength / 8, aad: aad)
+        
         return (resHeader, encryptedKey, iv, ciphertext, tag)
     }
     
@@ -99,6 +106,10 @@ class EcdhEsEncryptor: JWEEncryptor {
         } else {
             cek = kek
         }
-        return try enc.decrypt(ciphertext: ciphertext, key: cek, iv: iv, tag: tag, aad: aad.count == 0 ? nil : aad)
+        
+        let decryptionAad = header.jsonSerializedData().base64URLEncodedData()
+        + ((aad.count > 0) ? ".".data(using: .ascii)! + aad : aad)
+        
+        return try enc.decrypt(ciphertext: ciphertext, key: cek, iv: iv, tag: tag, aad: decryptionAad)
     }
 }
