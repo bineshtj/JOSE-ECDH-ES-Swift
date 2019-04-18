@@ -6,6 +6,26 @@
 //
 
 import Foundation
+import JOSESwift
+
+enum JSONWebEncryptionCompressionAlgorithm: String {
+    
+    case DEFLATE = "DEF"
+    
+    var compress: (_ data: Data) throws -> Data {
+        switch self {
+        case .DEFLATE:
+            return deflateCompress
+        }
+    }
+    
+    var decompress: (_ data: Data) throws -> Data {
+        switch self {
+        case .DEFLATE:
+            return deflateDecompress
+        }
+    }
+}
 
 protocol KeySizeKnowable {
     var keySize: Int {get}

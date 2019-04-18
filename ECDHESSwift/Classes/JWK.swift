@@ -59,3 +59,26 @@ public func generateECKeyPair(curveType: ECCurveType) throws -> ECKeyPair {
     }
     throw EcKeyError.generateECKeyPairFail
 }
+
+public extension JWK {
+    func dictionarized() -> [String:String] {
+        do {
+            guard
+                let jsonData = self.jsonData(),
+                let dic = try JSONSerialization.jsonObject(
+                    with: jsonData,
+                    options: [.mutableContainers]
+                ) as? [String:String]
+            else {
+                return [String:String]()
+            }
+            return dic
+        } catch {}
+        return [String:String]()
+    }
+    
+    init(dictionary: [String:Any]) throws {
+        let jsonData = try JSONSerialization.data(withJSONObject: dictionary, options: [])
+        try self.init(data: jsonData)
+    }
+}

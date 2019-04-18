@@ -48,6 +48,18 @@ class EcdhEsJweHeaderSpec: QuickSpec {
                 expect(header.jsonSerializedData().base64URLEncodedData()) == b64url
             }
         }
+        
+        describe("invalid header data") {
+            it("should throw") {
+                let arrayJsonData = "[1,2,3,4]".data(using: .utf8)!
+                let jsonData = "1234".data(using: .utf8)!
+                expect{ _ = try EcdhEsJweHeader(jsonData: jsonData)}.to(throwError())
+                expect{ _ = try EcdhEsJweHeader(jsonData: arrayJsonData)}.to(throwError())
+                expect{ _ = try EcdhEsJweHeader(b64uData: jsonData)}.to(throwError())
+                expect{ _ = try EcdhEsJweHeader(b64uData: arrayJsonData)}.to(throwError())
+            }
+        }
+        
         describe("defend parameter be setted") {
             context("alg, enc should be protected") {
                 it("init unexpected type should throw") {
@@ -68,10 +80,24 @@ class EcdhEsJweHeaderSpec: QuickSpec {
                     expect(header["enc"] as? String) == "bbb"
                     header["enc"] = 654
                     expect(header["enc"] as? String) == "bbb"
+                    expect(header.enc) == "bbb"
                     header["enc"] = "bcd"
                     expect(header["enc"] as? String) == "bcd"
+                    expect(header.enc) == "bcd"
+                }
+            }
+            context("epk should be protected") {
+                it("init unexpected invalid JSONSerialization object ") {
+                    let keyPair = try! generateECKeyPair(curveType: .P256)
+                    expect{ _ = try EcdhEsJweHeader(parameters: ["enc": "ECDH-ES", "alg": "A128", "epk": keyPair.getPrivate()])}.toNot(throwError())
+                    let b = NotCodable()
+                    expect{ _ = try EcdhEsJweHeader(parameters: ["enc": "ECDH-ES", "alg": "A128", "epk": b])}.to(throwError())
                 }
             }
         }
     }
+}
+
+struct NotCodable {
+    private var b: String = "abc"
 }

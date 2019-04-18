@@ -18,6 +18,8 @@
 		9E2C4D4822661D3500776029 /* EcdhEsJweHeaderSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E2C4D4722661D3500776029 /* EcdhEsJweHeaderSpec.swift */; };
 		9E34C0B3226715670067C95B /* EcdhJweSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E34C0B2226715670067C95B /* EcdhJweSpec.swift */; };
 		9E34C0B5226716690067C95B /* ietf-jose-cookbook-fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E34C0B4226716690067C95B /* ietf-jose-cookbook-fixtures.swift */; };
+		9EACCBB322688BD1007549EA /* JWEEncryptorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EACCBB222688BD1007549EA /* JWEEncryptorSpec.swift */; };
+		9EACCBB92268E841007549EA /* DeflateSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EACCBB82268E841007549EA /* DeflateSpec.swift */; };
 		A656246F225EEE88008E5F5F /* TestingUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A656246E225EEE88008E5F5F /* TestingUtils.swift */; };
 		A6562473225EEFE6008E5F5F /* EcdhTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6562472225EEFE6008E5F5F /* EcdhTests.swift */; };
 		F0AEF3103C85E79361A8C262 /* Pods_ECDHESSwift_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57547ED1026C1F7EE88BF9F4 /* Pods_ECDHESSwift_Tests.framework */; };
@@ -54,6 +56,8 @@
 		9E2C4D4722661D3500776029 /* EcdhEsJweHeaderSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EcdhEsJweHeaderSpec.swift; sourceTree = "<group>"; };
 		9E34C0B2226715670067C95B /* EcdhJweSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcdhJweSpec.swift; sourceTree = "<group>"; };
 		9E34C0B4226716690067C95B /* ietf-jose-cookbook-fixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ietf-jose-cookbook-fixtures.swift"; sourceTree = "<group>"; };
+		9EACCBB222688BD1007549EA /* JWEEncryptorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JWEEncryptorSpec.swift; sourceTree = "<group>"; };
+		9EACCBB82268E841007549EA /* DeflateSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeflateSpec.swift; sourceTree = "<group>"; };
 		A656246E225EEE88008E5F5F /* TestingUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestingUtils.swift; sourceTree = "<group>"; };
 		A6562472225EEFE6008E5F5F /* EcdhTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EcdhTests.swift; sourceTree = "<group>"; };
 		B8BE9C42D647F0B228B37861 /* Pods_ECDHESSwift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ECDHESSwift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,6 +139,8 @@
 				9E0FEC7122658E090018ACB3 /* KeyWrapSpec.swift */,
 				9E34C0B2226715670067C95B /* EcdhJweSpec.swift */,
 				9E34C0B4226716690067C95B /* ietf-jose-cookbook-fixtures.swift */,
+				9EACCBB222688BD1007549EA /* JWEEncryptorSpec.swift */,
+				9EACCBB82268E841007549EA /* DeflateSpec.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -385,8 +391,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9EACCBB322688BD1007549EA /* JWEEncryptorSpec.swift in Sources */,
 				A6562473225EEFE6008E5F5F /* EcdhTests.swift in Sources */,
 				9E34C0B5226716690067C95B /* ietf-jose-cookbook-fixtures.swift in Sources */,
+				9EACCBB92268E841007549EA /* DeflateSpec.swift in Sources */,
 				9E34C0B3226715670067C95B /* EcdhJweSpec.swift in Sources */,
 				A656246F225EEE88008E5F5F /* TestingUtils.swift in Sources */,
 				607FACEC1AFB9204008FA782 /* EcJwkTests.swift in Sources */,

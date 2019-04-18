@@ -12,10 +12,12 @@ internal enum ECDHEESError: Error {
     case unwrapKeyFail
     case invalidEncryptionKeySize
     case invalidEncryptionIVSize
-    case invalidHeaderParameter(param: String)
+    case invalidHeaderParameter(reason: String)
     case invalidJsonData
     case invalidBase64URLEncoded
     case invalidCompactSerializedData
     case unknownOrUnsupportedAlgorithm(reason: String)
     case invalidJWK(reason: String)
+    case compressionFailed
+    case decompressionFailed
 }

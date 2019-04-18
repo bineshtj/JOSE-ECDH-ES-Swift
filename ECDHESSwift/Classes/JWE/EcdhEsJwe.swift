@@ -15,8 +15,6 @@ public struct EcdhEsJwe: JSONWebEncryption {
 
     static var defaultEnc = EncryptionAlgorithm.A256GCM
 
-    let separator = "."
-
     public let header: JSONWebEncryptionHeader
 
     public let encryptedKey: Data
@@ -34,12 +32,12 @@ public struct EcdhEsJwe: JSONWebEncryption {
     }
 
     public var compactSerializedData: Data {
-        let dot = separator.data(using: .ascii)!
+        let separator = Data([0x2E])
         return header.jsonSerializedData().base64URLEncodedData()
-            + dot + encryptedKey.base64URLEncodedData()
-            + dot + initializationVector.base64URLEncodedData()
-            + dot + ciphertext.base64URLEncodedData()
-            + dot + authenticationTag.base64URLEncodedData()
+            + separator + encryptedKey.base64URLEncodedData()
+            + separator + initializationVector.base64URLEncodedData()
+            + separator + ciphertext.base64URLEncodedData()
+            + separator + authenticationTag.base64URLEncodedData()
     }
 
     public func decrypt(key: JWK) throws -> Data {
@@ -163,6 +161,7 @@ public struct EcdhEsJwe: JSONWebEncryption {
         self.header = try EcdhEsJweHeader(jsonData: header)
         (self.encryptedKey, initializationVector, self.ciphertext, authenticationTag)
             = (encryptedKey, iv, ciphertext, tag)
+        
         additionalAuthenticatedData = Data()
     }
 }
