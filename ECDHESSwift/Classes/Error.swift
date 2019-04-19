@@ -6,18 +6,19 @@
 //
 
 internal enum ECDHEESError: Error {
-    case deriveKeyFail(reason: String)
+    case unknownOrUnsupportedAlgorithm(reason: String)
+    case unknownOrUnsupportedCompressionAlgorithm(reason: String)
+    case invalidJWK(reason: String)
     case invalidKeyDerivationSize
-    case wrapKeyFail
-    case unwrapKeyFail
     case invalidEncryptionKeySize
     case invalidEncryptionIVSize
     case invalidHeaderParameter(reason: String)
     case invalidJsonData
     case invalidBase64URLEncoded
     case invalidCompactSerializedData
-    case unknownOrUnsupportedAlgorithm(reason: String)
-    case invalidJWK(reason: String)
+    case deriveKeyFail(reason: String)
+    case wrapKeyFail
+    case unwrapKeyFail
     case compressionFailed
     case decompressionFailed
 }
