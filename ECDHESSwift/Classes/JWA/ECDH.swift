@@ -28,14 +28,15 @@ func ecdhDeriveBits(ecPrivJwk: ECPrivateKey, ecPubJwk: ECPublicKey, bitLen: Int 
     let parameters = [String: Any]()
     var error: Unmanaged<CFError>?
 
-    if let derivedData = SecKeyCopyKeyExchangeResult(eprivKey, SecKeyAlgorithm.ecdhKeyExchangeStandard, pubKey, parameters as CFDictionary, &error) {
-        if bitLen > 0 {
-            return truncateBitLen(from: (derivedData as Data), bitLen: bitLen)
-        }
-        return (derivedData as Data)
-    }
-    if let errStr = error?.takeRetainedValue().localizedDescription {
+    guard let derivedData = SecKeyCopyKeyExchangeResult(
+        eprivKey,
+        SecKeyAlgorithm.ecdhKeyExchangeStandard,
+        pubKey,
+        parameters as CFDictionary,
+        &error)
+    else {
+        let errStr = error?.takeRetainedValue().localizedDescription ?? "Derive Key Fail"
         throw ECDHEESError.deriveKeyFail(reason: errStr)
     }
-    throw ECDHEESError.deriveKeyFail(reason: "Derive Key Fail")
+    return bitLen > 0 ? truncateBitLen(from: (derivedData as Data), bitLen: bitLen) : (derivedData as Data) as Data
 }
