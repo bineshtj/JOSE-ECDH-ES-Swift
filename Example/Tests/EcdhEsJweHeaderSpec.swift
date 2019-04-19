@@ -74,13 +74,23 @@ class EcdhEsJweHeaderSpec: QuickSpec {
                     expect(header["alg"] as? String) == "bbb"
                     header["alg"] = 123
                     expect(header["alg"] as? String) == "bbb"
+                    
+                    header.alg = "ABC"
+                    expect(header["alg"] as? String) == "ABC"
+
                     header["alg"] = "cde"
                     expect(header["alg"] as? String) == "cde"
 
                     expect(header["enc"] as? String) == "bbb"
                     header["enc"] = 654
                     expect(header["enc"] as? String) == "bbb"
+                    
+                    header["enc"] = 123
                     expect(header.enc) == "bbb"
+                    
+                    header.enc = "CCCCC"
+                    expect(header["enc"] as? String) == "CCCCC"
+                    
                     header["enc"] = "bcd"
                     expect(header["enc"] as? String) == "bcd"
                     expect(header.enc) == "bcd"
@@ -89,10 +99,15 @@ class EcdhEsJweHeaderSpec: QuickSpec {
             context("epk should be protected") {
                 it("init unexpected invalid JSONSerialization object ") {
                     let keyPair = try! generateECKeyPair(curveType: .P256)
-                    expect { _ = try EcdhEsJweHeader(parameters: ["enc": "ECDH-ES", "alg": "A128", "epk": keyPair.getPrivate()]) }.toNot(throwError())
+                    let jwe = try! EcdhEsJweHeader(parameters: ["enc": "ECDH-ES", "alg": "A128", "epk": keyPair.getPrivate()])
+                    expect(jwe.epk).to(beAKindOf(ECPublicKey.self))
+                    
                     let b = NotCodable()
                     expect { _ = try EcdhEsJweHeader(parameters: ["enc": "ECDH-ES", "alg": "A128", "epk": b]) }.to(throwError())
                 }
+            }
+            context("apu apv") {
+                
             }
         }
     }
