@@ -48,11 +48,27 @@ public struct EcdhEsJwe: JSONWebEncryption {
             aad: additionalAuthenticatedData)
     }
 
+    public func decrypt(privKeyJwkJson: Data) throws -> Data {
+        let key = try ECPrivateKey(data: privKeyJwkJson)
+        return try EcdhEsJwe.encryptor.decrypt(
+            key: key, header: header,
+            encryptedKey: encryptedKey, iv: initializationVector,
+            ciphertext: ciphertext, tag: authenticationTag,
+            aad: additionalAuthenticatedData)
+    }
+
+    public func decrypt(privKeyJwkJson: String) throws -> Data {
+        guard let jsonData = privKeyJwkJson.data(using: .utf8) else {
+            throw ECDHEESError.invalidJWK(reason: "unexpected jwk json data")
+        }
+        return try decrypt(privKeyJwkJson: jsonData)
+    }
+
     /**
      Encrypt plaintext as a ECDH-ES JWE
 
      - Parameter plaintext: plaintext
-     - Parameter pubKeyJwkJson: EC public JWK
+     - Parameter pubKeyJwkJson: EC public JWK JSON data
      - Parameter header: JSONWebEncryptionHeader
      - Parameter options: encryption option (e.g ["aad": Data(......)])
 
@@ -61,6 +77,25 @@ public struct EcdhEsJwe: JSONWebEncryption {
      **/
     public init(plaintext: Data, pubKeyJwkJson: Data, header: JSONWebEncryptionHeader, options: [String: Any] = [:]) throws {
         let pubKey = try ECPublicKey(data: pubKeyJwkJson)
+        try self.init(plaintext: plaintext, pubKey: pubKey, header: header, options: options)
+    }
+
+    /**
+     Encrypt plaintext as a ECDH-ES JWE
+
+     - Parameter plaintext: plaintext
+     - Parameter pubKeyJwkJson: EC public JWK JSON string
+     - Parameter header: JSONWebEncryptionHeader
+     - Parameter options: encryption option (e.g ["aad": Data(......)])
+
+     - Throws: ECDHError
+
+     **/
+    public init(plaintext: Data, pubKeyJwkJson: String, header: JSONWebEncryptionHeader, options: [String: Any] = [:]) throws {
+        guard let jsonData = pubKeyJwkJson.data(using: .utf8) else {
+            throw ECDHEESError.invalidJWK(reason: "unexpected jwk json data")
+        }
+        let pubKey = try ECPublicKey(data: jsonData)
         try self.init(plaintext: plaintext, pubKey: pubKey, header: header, options: options)
     }
 
@@ -88,7 +123,7 @@ public struct EcdhEsJwe: JSONWebEncryption {
      Encrypt plaintext as a ECDH-ES JWE
 
      - Parameter plaintext: plaintext
-     - Parameter pubKeyJwkJson: EC public JWK
+     - Parameter pubKeyJwkJson: EC public JWK JSON data
      - Parameter headerDic: JOSE header dictionary
      - Parameter options: encryption option (e.g ["aad": Data(......)])
 
@@ -97,6 +132,25 @@ public struct EcdhEsJwe: JSONWebEncryption {
      **/
     public init(plaintext: Data, pubKeyJwkJson: Data, headerDic: [String: Any] = [:], options: [String: Any] = [:]) throws {
         let pubKey = try ECPublicKey(data: pubKeyJwkJson)
+        try self.init(plaintext: plaintext, pubKey: pubKey, headerDic: headerDic, options: options)
+    }
+
+    /**
+     Encrypt plaintext as a ECDH-ES JWE
+
+     - Parameter plaintext: plaintext
+     - Parameter pubKeyJwkJson: EC public JWK JSON string
+     - Parameter headerDic: JOSE header dictionary
+     - Parameter options: encryption option (e.g ["aad": Data(......)])
+
+     - Throws: ECDHError
+
+     **/
+    public init(plaintext: Data, pubKeyJwkJson: String, headerDic: [String: Any] = [:], options: [String: Any] = [:]) throws {
+        guard let jsonData = pubKeyJwkJson.data(using: .utf8) else {
+            throw ECDHEESError.invalidJWK(reason: "unexpected jwk json data")
+        }
+        let pubKey = try ECPublicKey(data: jsonData)
         try self.init(plaintext: plaintext, pubKey: pubKey, headerDic: headerDic, options: options)
     }
 
@@ -125,11 +179,11 @@ public struct EcdhEsJwe: JSONWebEncryption {
 
     /**
      Create ECDH-ES JWE with a compact serialized string for decrypt
-     
+
      - Parameter compactSerializedString: compact serialized string
-     
+
      - Throws: ECDHError
-     
+
      **/
     public init(compactSerializedString: String) throws {
         guard let compactSerializedData = compactSerializedString.data(using: .ascii) else {
@@ -140,11 +194,11 @@ public struct EcdhEsJwe: JSONWebEncryption {
 
     /**
      Create ECDH-ES JWE with a compact serialized data for decrypt
-     
+
      - Parameter compactSerializedData: compact serialized data
-     
+
      - Throws: ECDHError
-     
+
      **/
     public init(compactSerializedData: Data) throws {
         let parts = compactSerializedData.split(separator: UInt8(0x2E), omittingEmptySubsequences: false)
@@ -155,13 +209,13 @@ public struct EcdhEsJwe: JSONWebEncryption {
             let iv = Data(base64URLEncoded: parts[2]),
             let ciphertext = Data(base64URLEncoded: parts[3]),
             let tag = Data(base64URLEncoded: parts[4])
-            else {
-                throw ECDHEESError.invalidCompactSerializedData
+        else {
+            throw ECDHEESError.invalidCompactSerializedData
         }
         self.header = try EcdhEsJweHeader(jsonData: header)
         (self.encryptedKey, initializationVector, self.ciphertext, authenticationTag)
             = (encryptedKey, iv, ciphertext, tag)
-        
+
         additionalAuthenticatedData = Data()
     }
 }
