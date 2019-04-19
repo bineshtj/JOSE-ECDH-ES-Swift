@@ -21,13 +21,14 @@ public func XCTAssertNoThrow<T>(_ expression: @autoclosure () throws -> T, _ mes
 
 extension Data {
     func numberString() -> String {
-        let format =  "%d"
+        let format = "%d"
         return map { String(format: format, $0) }.joined(separator: ", ")
     }
+
     init(hex: String) {
         let hexAlphabet = [Character]("0123456789abcdef")
         var lowercaseHex = [Character](hex.lowercased().replacingOccurrences(of: " ", with: ""))
-        lowercaseHex = [Character]([Character](lowercaseHex.count & 2 == 1 ? "0":"") + lowercaseHex)
+        lowercaseHex = [Character]([Character](lowercaseHex.count & 2 == 1 ? "0" : "") + lowercaseHex)
         var res = [UInt8]()
         var c: UInt8 = 0
         for idx in 0 ..< lowercaseHex.count {
@@ -44,4 +45,3 @@ extension Data {
         self.init(res)
     }
 }
-

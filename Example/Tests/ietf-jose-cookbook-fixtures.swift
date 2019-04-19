@@ -18,7 +18,7 @@ struct IETFJoseCookbookFixtures: Codable {
     let encryptingKey: EncryptingKey
     let encryptingContent: EncryptingContent
     let output: Output
-    
+
     enum CodingKeys: String, CodingKey {
         case title, input, generated
         case encryptingKey = "encrypting_key"
@@ -30,7 +30,7 @@ struct IETFJoseCookbookFixtures: Codable {
 struct EncryptingContent: Codable {
     let protected: Protected
     let protectedB64U, ciphertext, tag: String
-    
+
     enum CodingKeys: String, CodingKey {
         case protected
         case protectedB64U = "protected_b64u"
@@ -47,7 +47,7 @@ struct Protected: Codable {
 struct EncryptingKey: Codable {
     let epk: ECPrivateKey
     let encryptedKey: String
-    
+
     enum CodingKeys: String, CodingKey {
         case epk
         case encryptedKey = "encrypted_key"
@@ -67,7 +67,7 @@ struct Input: Codable {
 struct Output: Codable {
     let compact: String
     let purpleJSON, jsonFlat: JSON
-    
+
     enum CodingKeys: String, CodingKey {
         case compact
         case purpleJSON = "json"
@@ -79,7 +79,7 @@ struct JSON: Codable {
     let recipients: [Recipient]?
     let protected, iv, ciphertext, tag: String
     let encryptedKey: String?
-    
+
     enum CodingKeys: String, CodingKey {
         case recipients, protected, iv, ciphertext, tag
         case encryptedKey = "encrypted_key"
@@ -88,7 +88,7 @@ struct JSON: Codable {
 
 struct Recipient: Codable {
     let encryptedKey: String
-    
+
     enum CodingKeys: String, CodingKey {
         case encryptedKey = "encrypted_key"
     }
@@ -101,22 +101,22 @@ extension IETFJoseCookbookFixtures {
         guard let me = try? JSONDecoder().decode(IETFJoseCookbookFixtures.self, from: data) else { return nil }
         self = me
     }
-    
+
     init?(_ json: String, using encoding: String.Encoding = .utf8) {
         guard let data = json.data(using: encoding) else { return nil }
         self.init(data: data)
     }
-    
+
     init?(fromURL url: String) {
         guard let url = URL(string: url) else { return nil }
         guard let data = try? Data(contentsOf: url) else { return nil }
         self.init(data: data)
     }
-    
+
     var jsonData: Data? {
         return try? JSONEncoder().encode(self)
     }
-    
+
     var json: String? {
         guard let data = self.jsonData else { return nil }
         return String(data: data, encoding: .utf8)
@@ -128,22 +128,22 @@ extension EncryptingContent {
         guard let me = try? JSONDecoder().decode(EncryptingContent.self, from: data) else { return nil }
         self = me
     }
-    
+
     init?(_ json: String, using encoding: String.Encoding = .utf8) {
         guard let data = json.data(using: encoding) else { return nil }
         self.init(data: data)
     }
-    
+
     init?(fromURL url: String) {
         guard let url = URL(string: url) else { return nil }
         guard let data = try? Data(contentsOf: url) else { return nil }
         self.init(data: data)
     }
-    
+
     var jsonData: Data? {
         return try? JSONEncoder().encode(self)
     }
-    
+
     var json: String? {
         guard let data = self.jsonData else { return nil }
         return String(data: data, encoding: .utf8)
@@ -155,22 +155,22 @@ extension Protected {
         guard let me = try? JSONDecoder().decode(Protected.self, from: data) else { return nil }
         self = me
     }
-    
+
     init?(_ json: String, using encoding: String.Encoding = .utf8) {
         guard let data = json.data(using: encoding) else { return nil }
         self.init(data: data)
     }
-    
+
     init?(fromURL url: String) {
         guard let url = URL(string: url) else { return nil }
         guard let data = try? Data(contentsOf: url) else { return nil }
         self.init(data: data)
     }
-    
+
     var jsonData: Data? {
         return try? JSONEncoder().encode(self)
     }
-    
+
     var json: String? {
         guard let data = self.jsonData else { return nil }
         return String(data: data, encoding: .utf8)
@@ -182,22 +182,22 @@ extension EncryptingKey {
         guard let me = try? JSONDecoder().decode(EncryptingKey.self, from: data) else { return nil }
         self = me
     }
-    
+
     init?(_ json: String, using encoding: String.Encoding = .utf8) {
         guard let data = json.data(using: encoding) else { return nil }
         self.init(data: data)
     }
-    
+
     init?(fromURL url: String) {
         guard let url = URL(string: url) else { return nil }
         guard let data = try? Data(contentsOf: url) else { return nil }
         self.init(data: data)
     }
-    
+
     var jsonData: Data? {
         return try? JSONEncoder().encode(self)
     }
-    
+
     var json: String? {
         guard let data = self.jsonData else { return nil }
         return String(data: data, encoding: .utf8)
@@ -209,22 +209,22 @@ extension Generated {
         guard let me = try? JSONDecoder().decode(Generated.self, from: data) else { return nil }
         self = me
     }
-    
+
     init?(_ json: String, using encoding: String.Encoding = .utf8) {
         guard let data = json.data(using: encoding) else { return nil }
         self.init(data: data)
     }
-    
+
     init?(fromURL url: String) {
         guard let url = URL(string: url) else { return nil }
         guard let data = try? Data(contentsOf: url) else { return nil }
         self.init(data: data)
     }
-    
+
     var jsonData: Data? {
         return try? JSONEncoder().encode(self)
     }
-    
+
     var json: String? {
         guard let data = self.jsonData else { return nil }
         return String(data: data, encoding: .utf8)
@@ -236,22 +236,22 @@ extension Input {
         guard let me = try? JSONDecoder().decode(Input.self, from: data) else { return nil }
         self = me
     }
-    
+
     init?(_ json: String, using encoding: String.Encoding = .utf8) {
         guard let data = json.data(using: encoding) else { return nil }
         self.init(data: data)
     }
-    
+
     init?(fromURL url: String) {
         guard let url = URL(string: url) else { return nil }
         guard let data = try? Data(contentsOf: url) else { return nil }
         self.init(data: data)
     }
-    
+
     var jsonData: Data? {
         return try? JSONEncoder().encode(self)
     }
-    
+
     var json: String? {
         guard let data = self.jsonData else { return nil }
         return String(data: data, encoding: .utf8)
@@ -263,22 +263,22 @@ extension Output {
         guard let me = try? JSONDecoder().decode(Output.self, from: data) else { return nil }
         self = me
     }
-    
+
     init?(_ json: String, using encoding: String.Encoding = .utf8) {
         guard let data = json.data(using: encoding) else { return nil }
         self.init(data: data)
     }
-    
+
     init?(fromURL url: String) {
         guard let url = URL(string: url) else { return nil }
         guard let data = try? Data(contentsOf: url) else { return nil }
         self.init(data: data)
     }
-    
+
     var jsonData: Data? {
         return try? JSONEncoder().encode(self)
     }
-    
+
     var json: String? {
         guard let data = self.jsonData else { return nil }
         return String(data: data, encoding: .utf8)
@@ -290,22 +290,22 @@ extension JSON {
         guard let me = try? JSONDecoder().decode(JSON.self, from: data) else { return nil }
         self = me
     }
-    
+
     init?(_ json: String, using encoding: String.Encoding = .utf8) {
         guard let data = json.data(using: encoding) else { return nil }
         self.init(data: data)
     }
-    
+
     init?(fromURL url: String) {
         guard let url = URL(string: url) else { return nil }
         guard let data = try? Data(contentsOf: url) else { return nil }
         self.init(data: data)
     }
-    
+
     var jsonData: Data? {
         return try? JSONEncoder().encode(self)
     }
-    
+
     var json: String? {
         guard let data = self.jsonData else { return nil }
         return String(data: data, encoding: .utf8)
@@ -317,22 +317,22 @@ extension Recipient {
         guard let me = try? JSONDecoder().decode(Recipient.self, from: data) else { return nil }
         self = me
     }
-    
+
     init?(_ json: String, using encoding: String.Encoding = .utf8) {
         guard let data = json.data(using: encoding) else { return nil }
         self.init(data: data)
     }
-    
+
     init?(fromURL url: String) {
         guard let url = URL(string: url) else { return nil }
         guard let data = try? Data(contentsOf: url) else { return nil }
         self.init(data: data)
     }
-    
+
     var jsonData: Data? {
         return try? JSONEncoder().encode(self)
     }
-    
+
     var json: String? {
         guard let data = self.jsonData else { return nil }
         return String(data: data, encoding: .utf8)
@@ -409,7 +409,6 @@ let cookeBookJwe5p4JsonData = """
   }
 }
 """.data(using: .utf8)!
-
 
 func getCookeBookJwe5p4Fixure() -> IETFJoseCookbookFixtures {
     return try! JSONDecoder().decode(IETFJoseCookbookFixtures.self, from: cookeBookJwe5p4JsonData)

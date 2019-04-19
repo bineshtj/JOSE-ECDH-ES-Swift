@@ -5,21 +5,21 @@
 //  Created by MFantcy on 2019/4/9.
 //
 
-import XCTest
-import JOSESwift
 @testable import ECDHESSwift
+import JOSESwift
+import XCTest
 
 class EcJwkTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
-    
+
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
+
     func testGenerateP256KeyPaire() {
         XCTAssertNoThrow(try generateECKeyPair(curveType: ECCurveType.P256)) {
             (ecKeyPair: ECKeyPair) in
@@ -34,7 +34,7 @@ class EcJwkTests: XCTestCase {
             XCTAssertEqual(ecKeyPair.crv, ECCurveType.P256)
         }
     }
-    
+
     func testPerformanceExample() {
         // This is an example of a performance test case.
         measure {

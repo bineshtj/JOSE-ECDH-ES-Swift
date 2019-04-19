@@ -6,10 +6,10 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
-import Quick
-import Nimble
 import ECDHESSwift
 import JOSESwift
+import Nimble
+import Quick
 
 class EcdhEsJweHeaderSpec: QuickSpec {
     override func spec() {
@@ -48,26 +48,26 @@ class EcdhEsJweHeaderSpec: QuickSpec {
                 expect(header.jsonSerializedData().base64URLEncodedData()) == b64url
             }
         }
-        
+
         describe("invalid header data") {
             it("should throw") {
                 let arrayJsonData = "[1,2,3,4]".data(using: .utf8)!
                 let jsonData = "1234".data(using: .utf8)!
-                expect{ _ = try EcdhEsJweHeader(jsonData: jsonData)}.to(throwError())
-                expect{ _ = try EcdhEsJweHeader(jsonData: arrayJsonData)}.to(throwError())
-                expect{ _ = try EcdhEsJweHeader(b64uData: jsonData)}.to(throwError())
-                expect{ _ = try EcdhEsJweHeader(b64uData: arrayJsonData)}.to(throwError())
+                expect { _ = try EcdhEsJweHeader(jsonData: jsonData) }.to(throwError())
+                expect { _ = try EcdhEsJweHeader(jsonData: arrayJsonData) }.to(throwError())
+                expect { _ = try EcdhEsJweHeader(b64uData: jsonData) }.to(throwError())
+                expect { _ = try EcdhEsJweHeader(b64uData: arrayJsonData) }.to(throwError())
             }
         }
-        
+
         describe("defend parameter be setted") {
             context("alg, enc should be protected") {
                 it("init unexpected type should throw") {
-                    expect{ _ = try EcdhEsJweHeader(parameters: ["enc": 123, "alg": "xxx"])}.to(throwError())
-                    expect{ _ = try EcdhEsJweHeader(parameters: ["enc": "bbb", "alg": false])}.to(throwError())
-                    expect{ _ = try EcdhEsJweHeader(parameters: ["enc": "bbb"])}.to(throwError())
-                    expect{ _ = try EcdhEsJweHeader(parameters: ["alg": "bbb"])}.to(throwError())
-                    expect{ _ = try EcdhEsJweHeader(parameters: ["alg": "bbb", "enc": "bbb"])}.toNot(throwError())
+                    expect { _ = try EcdhEsJweHeader(parameters: ["enc": 123, "alg": "xxx"]) }.to(throwError())
+                    expect { _ = try EcdhEsJweHeader(parameters: ["enc": "bbb", "alg": false]) }.to(throwError())
+                    expect { _ = try EcdhEsJweHeader(parameters: ["enc": "bbb"]) }.to(throwError())
+                    expect { _ = try EcdhEsJweHeader(parameters: ["alg": "bbb"]) }.to(throwError())
+                    expect { _ = try EcdhEsJweHeader(parameters: ["alg": "bbb", "enc": "bbb"]) }.toNot(throwError())
                 }
                 it("subscript sets unexpded type should do not thing") {
                     var header = try! EcdhEsJweHeader(parameters: ["alg": "bbb", "enc": "bbb"])
@@ -76,7 +76,7 @@ class EcdhEsJweHeaderSpec: QuickSpec {
                     expect(header["alg"] as? String) == "bbb"
                     header["alg"] = "cde"
                     expect(header["alg"] as? String) == "cde"
-                    
+
                     expect(header["enc"] as? String) == "bbb"
                     header["enc"] = 654
                     expect(header["enc"] as? String) == "bbb"
@@ -89,9 +89,9 @@ class EcdhEsJweHeaderSpec: QuickSpec {
             context("epk should be protected") {
                 it("init unexpected invalid JSONSerialization object ") {
                     let keyPair = try! generateECKeyPair(curveType: .P256)
-                    expect{ _ = try EcdhEsJweHeader(parameters: ["enc": "ECDH-ES", "alg": "A128", "epk": keyPair.getPrivate()])}.toNot(throwError())
+                    expect { _ = try EcdhEsJweHeader(parameters: ["enc": "ECDH-ES", "alg": "A128", "epk": keyPair.getPrivate()]) }.toNot(throwError())
                     let b = NotCodable()
-                    expect{ _ = try EcdhEsJweHeader(parameters: ["enc": "ECDH-ES", "alg": "A128", "epk": b])}.to(throwError())
+                    expect { _ = try EcdhEsJweHeader(parameters: ["enc": "ECDH-ES", "alg": "A128", "epk": b]) }.to(throwError())
                 }
             }
         }

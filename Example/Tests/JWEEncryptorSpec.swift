@@ -6,10 +6,10 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
-import Quick
-import Nimble
 @testable import ECDHESSwift
 import JOSESwift
+import Nimble
+import Quick
 
 class JWEEncryptorSpec: QuickSpec {
     override func spec() {
@@ -25,21 +25,20 @@ class JWEEncryptorSpec: QuickSpec {
                 let iv = Data(base64URLEncoded: fixture.generated.iv)!
                 it(fixture.title) {
                     let (resHeader, encryptedKey, resIv, ciphertext, tag)
-                    = try! encryptor.encrypt(
-                        plaintext: plaintext,
-                        key: staticKeyPair.getPublic(),
-                        header: header,
-                        options: [
-                            "ephemeralKeyPair": ephemeralKeyPair,
-                            "key": key,
-                            "iv" : iv
+                        = try! encryptor.encrypt(
+                            plaintext: plaintext,
+                            key: staticKeyPair.getPublic(),
+                            header: header,
+                            options: [
+                                "ephemeralKeyPair": ephemeralKeyPair,
+                                "key": key,
+                                "iv": iv,
                         ])
                     expect(resHeader.jsonSerializedData().base64URLEncodedString()) == fixture.output.jsonFlat.protected
                     expect(encryptedKey) == Data(base64URLEncoded: fixture.encryptingKey.encryptedKey)!
                     expect(resIv) == iv
                     expect(ciphertext) == Data(base64URLEncoded: fixture.output.jsonFlat.ciphertext)!
                     expect(tag) == Data(base64URLEncoded: fixture.output.jsonFlat.tag)!
-                    
                 }
             }
         }
