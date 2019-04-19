@@ -2,4 +2,4 @@
 
 cd $(dirname $0)/../
 
-echo "pod trunk push ECDHESSwift.podspec"
+pod trunk push ECDHESSwift.podspec
