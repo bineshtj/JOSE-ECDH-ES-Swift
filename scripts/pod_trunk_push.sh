@@ -2,4 +2,4 @@
 
 cd $(dirname $0)/../
 
-pod trunk push ECDHESSwift.podspec
+pod trunk push ECDHESSwift.podspec --verbose --allow-warnings --swift-version=4.2
