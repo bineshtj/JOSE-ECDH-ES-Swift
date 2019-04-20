@@ -14,7 +14,7 @@ podfile: Example/Podfile
 
 before_install:
  - gem install xcpretty       
- - gem install cocoapods
+ - gem install cocoapods -v $(cat Example/Podfile.lock |grep COCOAPODS |awk '{print $2}')
  - pod install --project-directory=Example
   
 script:

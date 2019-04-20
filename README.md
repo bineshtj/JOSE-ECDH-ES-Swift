@@ -25,6 +25,9 @@
 
 ### Encryption Algorithms
 
+- [x] A128CBC-HS256: AES_128_CBC_HMAC_SHA_256 authenticated encryption algorithm.
+- [x] A192CBC-HS384: AES_192_CBC_HMAC_SHA_384 authenticated encryption algorithm.
+- [x] A256CBC-HS512: AES_256_CBC_HMAC_SHA_512 authenticated encryption algorithm.
 - [x] A128GCM: AES GCM using 128-bit key.
 - [x] A192GCM: AES GCM using 192-bit key.
 - [x] A256GCM: AES GCM using 256-bit key.
@@ -35,7 +38,7 @@
 
 ### JWE Serializations
 
-- Compact Serialization
+- [x] Compact Serialization
 
 ## Requirements
 

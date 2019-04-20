@@ -10,7 +10,7 @@ internal enum ECDHEESError: Error {
     case unknownOrUnsupportedCompressionAlgorithm(reason: String)
     case invalidJWK(reason: String)
     case invalidKeyDerivationSize
-    case invalidEncryptionKeySize
+    case invalidKeySize
     case invalidEncryptionIVSize
     case invalidHeaderParameter(reason: String)
     case invalidJsonData
@@ -21,4 +21,5 @@ internal enum ECDHEESError: Error {
     case unwrapKeyFail
     case compressionFailed
     case decompressionFailed
+    case decryptFail(reason: String)
 }
