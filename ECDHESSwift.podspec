@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'ECDHESSwift'
-  s.version          = '0.0.3'
+  s.version          = '0.0.4'
   s.summary          = 'JOSE ECDH-ES 系列 Swift lib'
 
 # This description is used to generate tags and improve search results.

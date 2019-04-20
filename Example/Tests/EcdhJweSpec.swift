@@ -17,18 +17,18 @@ class EcdhJweSpec: QuickSpec {
             for curve in [ECCurveType.P256, ECCurveType.P384, ECCurveType.P521] {
                 let staticKeyPair = try! generateECKeyPair(curveType: curve)
                 let plaintext = """
-                    永和九年，歲在癸丑，暮春之初，會于會稽山陰之蘭亭，修禊事也。群賢畢至，少長咸集。
-                    此地有崇山峻嶺，茂林修竹；又有清流激湍，映帶左右，引以為流觴曲水，列坐其次。雖無絲竹管弦之盛，一觴一詠，亦足以暢敘幽情。
-                    是日也，天朗氣清，惠風和暢，仰觀宇宙之大，俯察品類之盛，所以游目騁懷，足以極視聽之娛，信可樂也。
-                    夫人之相與，俯仰一世，或取諸懷抱，悟言一室之內；或因寄所托，放浪形骸之外。
-                    雖趣舍萬殊，靜躁不同，當其欣于所遇，暫得于己，快然自足，不知老之將至。
-                    及其所之既倦，情隨事遷，感慨系之矣。
-                    向之所欣，俯仰之間，已為陳跡，猶不能不以之興懷。
-                    況修短隨化，終期于盡。古人云：“死生亦大矣。”豈不痛哉！(不知老之將至 一作：曾不知老之將至)
-                    每覽昔人興感之由，若合一契，未嘗不臨文嗟悼，不能喻之于懷。
-                    固知一死生為虛誕，齊彭殤為妄作。后之視今，亦猶今之視昔。
-                    悲夫！故列敘時人，錄其所述，雖世殊事異，所以興懷，其致一也。后之覽者，亦將有感于斯文。
-                    """.data(using: .utf8)!
+                永和九年，歲在癸丑，暮春之初，會于會稽山陰之蘭亭，修禊事也。群賢畢至，少長咸集。
+                此地有崇山峻嶺，茂林修竹；又有清流激湍，映帶左右，引以為流觴曲水，列坐其次。雖無絲竹管弦之盛，一觴一詠，亦足以暢敘幽情。
+                是日也，天朗氣清，惠風和暢，仰觀宇宙之大，俯察品類之盛，所以游目騁懷，足以極視聽之娛，信可樂也。
+                夫人之相與，俯仰一世，或取諸懷抱，悟言一室之內；或因寄所托，放浪形骸之外。
+                雖趣舍萬殊，靜躁不同，當其欣于所遇，暫得于己，快然自足，不知老之將至。
+                及其所之既倦，情隨事遷，感慨系之矣。
+                向之所欣，俯仰之間，已為陳跡，猶不能不以之興懷。
+                況修短隨化，終期于盡。古人云：“死生亦大矣。”豈不痛哉！(不知老之將至 一作：曾不知老之將至)
+                每覽昔人興感之由，若合一契，未嘗不臨文嗟悼，不能喻之于懷。
+                固知一死生為虛誕，齊彭殤為妄作。后之視今，亦猶今之視昔。
+                悲夫！故列敘時人，錄其所述，雖世殊事異，所以興懷，其致一也。后之覽者，亦將有感于斯文。
+                """.data(using: .utf8)!
                 for alg in EcdhEsAlgorithm.allCases {
                     for enc in EncryptionAlgorithm.allCases {
                         it("curve \(curve.rawValue) \(alg.rawValue) with \(enc.rawValue) should ok") {
@@ -68,6 +68,17 @@ class EcdhJweSpec: QuickSpec {
             }
         }
 
+        describe("cookbook/jwe/5_5.key_agreement_using_ecdh-es_with_aes-cbc-hmac-sha2.json") {
+            let fixture = getCookeBookJwe5p5Fixure()
+            it("decrypt should ok") {
+                let plaintext = fixture.input.plaintext.data(using: .utf8)!
+                let staticPrivateKey = fixture.input.key.getPrivate()
+                let jwe = try! EcdhEsJwe(compactSerializedString: fixture.output.compact)
+                let decripted = try! jwe.decrypt(key: staticPrivateKey)
+                expect(decripted) == plaintext
+            }
+        }
+
         describe("encrypt and decrypt with key jwk json") {
             let pubJwk = """
               {
@@ -87,22 +98,38 @@ class EcdhJweSpec: QuickSpec {
               }
             """
             let plaintext = """
-                紅藕香殘玉簟秋。輕解羅裳，獨上蘭舟。
-                雲中誰寄錦書來？雁字回時，月滿西樓。
+            紅藕香殘玉簟秋。輕解羅裳，獨上蘭舟。
+            雲中誰寄錦書來？雁字回時，月滿西樓。
 
-                花自飄零水自流。一種相思，兩處閒愁。
-                此情無計可消除，纔下眉頭，卻上心頭。
-                """.data(using: .utf8)!
+            花自飄零水自流。一種相思，兩處閒愁。
+            此情無計可消除，纔下眉頭，卻上心頭。
+            """.data(using: .utf8)!
+            it("""
+                ["alg": "ECDH-ES+A256KW", "enc": "A256GCM"]
+            """) {
+                let encryptionJwe = try! EcdhEsJwe(plaintext: plaintext, pubKeyJwkJson: pubJwk, headerDic: ["alg": "ECDH-ES+A256KW", "enc": "A256GCM"])
 
-            let encryptionJwe = try! EcdhEsJwe(plaintext: plaintext, pubKeyJwkJson: pubJwk, headerDic: ["alg": "ECDH-ES+A256KW", "enc": "A256GCM"])
+                let compactSerializedString = encryptionJwe.compactSerializedString
 
-            let compactSerializedString = encryptionJwe.compactSerializedString
-            
-            let decryptionJwe = try! EcdhEsJwe(compactSerializedString: compactSerializedString)
+                let decryptionJwe = try! EcdhEsJwe(compactSerializedString: compactSerializedString)
 
-            let decrypted = try! decryptionJwe.decrypt(privKeyJwkJson: privJwk)
+                let decrypted = try! decryptionJwe.decrypt(privKeyJwkJson: privJwk)
 
-            expect(decrypted) == plaintext
+                expect(decrypted) == plaintext
+            }
+            it("""
+                ["alg": "ECDH-ES+A192KW", "enc": "A256CBC-HS512"]
+            """) {
+                let encryptionJwe = try! EcdhEsJwe(plaintext: plaintext, pubKeyJwkJson: pubJwk, headerDic: ["alg": "ECDH-ES+A192KW", "enc": "A256CBC-HS512"])
+
+                let compactSerializedString = encryptionJwe.compactSerializedString
+
+                let decryptionJwe = try! EcdhEsJwe(compactSerializedString: compactSerializedString)
+
+                let decrypted = try! decryptionJwe.decrypt(privKeyJwkJson: privJwk)
+
+                expect(decrypted) == plaintext
+            }
         }
     }
 }

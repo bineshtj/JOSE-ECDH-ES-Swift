@@ -61,7 +61,7 @@ class EcdhEsEncryptor: JWEEncryptor {
             if let injectedKey = options["key"] as? Data {
                 cek = injectedKey
             } else {
-                cek = getRandomBytes(enc.keySize / 8)
+                cek = getRandomBytes(enc.keyBitSize / 8)
             }
             encryptedKey = try keyWrapAlgorithm.wrap(kek: kek, rawKey: cek)
         } else {
@@ -69,7 +69,7 @@ class EcdhEsEncryptor: JWEEncryptor {
             encryptedKey = Data()
         }
 
-        let iv = options["iv"] as? Data ?? getRandomBytes(enc.ivSize / 8)
+        let iv = options["iv"] as? Data ?? getRandomBytes(enc.ivBitSize / 8)
 
         var dataToEnc = plaintext
         if header["zip"] != nil {
@@ -92,7 +92,7 @@ class EcdhEsEncryptor: JWEEncryptor {
         }
         aad += options["aad"] as? Data ?? Data()
 
-        let (ciphertext, tag) = try enc.encrypt(plaintext: dataToEnc, key: cek, iv: iv, tagLen: enc.tagLength / 8, aad: aad)
+        let (ciphertext, tag) = try enc.encrypt(plaintext: dataToEnc, key: cek, iv: iv, aad: aad)
 
         return (resHeader, encryptedKey, iv, ciphertext, tag)
     }

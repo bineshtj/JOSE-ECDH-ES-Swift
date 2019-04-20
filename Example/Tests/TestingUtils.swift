@@ -27,7 +27,14 @@ extension Data {
 
     init(hex: String) {
         let hexAlphabet = [Character]("0123456789abcdef")
-        var lowercaseHex = [Character](hex.lowercased().replacingOccurrences(of: " ", with: ""))
+
+        var lowercaseHex = [Character](
+            hex.lowercased()
+                .replacingOccurrences(of: " ", with: "")
+                .replacingOccurrences(of: "\n", with: "")
+                .replacingOccurrences(of: "\r", with: "")
+                .replacingOccurrences(of: "\t", with: "")
+        )
         lowercaseHex = [Character]([Character](lowercaseHex.count & 2 == 1 ? "0" : "") + lowercaseHex)
         var res = [UInt8]()
         var c: UInt8 = 0

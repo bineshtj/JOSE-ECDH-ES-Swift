@@ -8,10 +8,10 @@
 import CryptoSwift
 import Foundation
 
-func aesGcmEncrypt(plaintext: Data, key: Data, iv: Data, tagLen: Int = 16, aad: Data? = nil) throws -> (ciphertext: Data, tag: Data) {
+func aesGcmEncrypt(plaintext: Data, key: Data, iv: Data, tagLen: Int, aad: Data) throws -> (ciphertext: Data, tag: Data) {
     let gcm = GCM(
         iv: [UInt8](iv),
-        additionalAuthenticatedData: (aad != nil ? [UInt8](aad!) : nil),
+        additionalAuthenticatedData: [UInt8](aad),
         tagLength: tagLen,
         mode: .detached)
 
@@ -22,11 +22,11 @@ func aesGcmEncrypt(plaintext: Data, key: Data, iv: Data, tagLen: Int = 16, aad: 
     return (Data(ciphertext), Data(tag))
 }
 
-func aesGcmDecrypt(ciphertext: Data, key: Data, iv: Data, tag: Data, aad: Data? = nil) throws -> Data {
+func aesGcmDecrypt(ciphertext: Data, key: Data, iv: Data, tag: Data, aad: Data) throws -> Data {
     let gcm = GCM(
         iv: [UInt8](iv),
         authenticationTag: [UInt8](tag),
-        additionalAuthenticatedData: (aad != nil ? [UInt8](aad!) : nil),
+        additionalAuthenticatedData: [UInt8](aad),
         mode: .detached)
 
     let aes = try AES(key: [UInt8](key), blockMode: gcm, padding: .noPadding)

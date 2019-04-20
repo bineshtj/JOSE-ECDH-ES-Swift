@@ -15,15 +15,15 @@ func ecdhKeyAgreementCompute(
     pubKey: ECPublicKey,
     apu: Data,
     apv: Data
-    ) throws -> Data {
+) throws -> Data {
     let z = try ecdhDeriveBits(ecPrivJwk: privKey, ecPubJwk: pubKey)
     var algId: Data, keyDataLen: Int
     if alg == .ECDH_ES {
         algId = enc.rawValue.data(using: .utf8)!
-        keyDataLen = enc.keySize
+        keyDataLen = enc.keyBitSize
     } else {
         algId = alg.rawValue.data(using: .utf8)!
-        keyDataLen = alg.keyWrapAlgorithm!.keySize
+        keyDataLen = alg.keyWrapAlgorithm!.keyBitSize
     }
     let algorithmID = prefixedBigEndenLen(from: algId)
     let partyUInfo = prefixedBigEndenLen(from: apu)
