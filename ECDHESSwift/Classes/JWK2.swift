@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import JOSESwift
+//import JOSESwift
 import Security
 
 public extension ECCurveType {

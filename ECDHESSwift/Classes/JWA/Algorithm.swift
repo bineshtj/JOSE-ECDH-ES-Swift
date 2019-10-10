@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import JOSESwift
+//import JOSESwift
 
 enum JSONWebEncryptionCompressionAlgorithm: String {
     case DEFLATE = "DEF"
@@ -105,8 +105,8 @@ enum EncryptionAlgorithm: String, KeySizeKnowable, CaseIterable {
                 aad: aad
             )
         case .A128CBC_HS256, .A192CBC_HS384, .A256CBC_HS512:
-            let hash = self == .A128CBC_HS256 ? Hash.SHA256
-                : (self == .A192CBC_HS384 ? Hash.SHA384 : Hash.SHA512)
+            let hash = self == .A128CBC_HS256 ? JWAHash.SHA256
+                : (self == .A192CBC_HS384 ? JWAHash.SHA384 : JWAHash.SHA512)
             let bothKeyLen = key.count / 2
             let (macKey, encKey) = (key[0 ..< bothKeyLen], key[bothKeyLen ..< key.count])
             return try aesCbcHmacSha2Encrypt(
@@ -133,8 +133,8 @@ enum EncryptionAlgorithm: String, KeySizeKnowable, CaseIterable {
         case .A128GCM, .A192GCM, .A256GCM:
             return try aesGcmDecrypt(ciphertext: ciphertext, key: key, iv: iv, tag: tag, aad: aad)
         case .A128CBC_HS256, .A192CBC_HS384, .A256CBC_HS512:
-            let hash = self == .A128CBC_HS256 ? Hash.SHA256
-                : (self == .A192CBC_HS384 ? Hash.SHA384 : Hash.SHA512)
+            let hash = self == .A128CBC_HS256 ? JWAHash.SHA256
+                : (self == .A192CBC_HS384 ? JWAHash.SHA384 : JWAHash.SHA512)
             let bothKeyLen = key.count / 2
             let (macKey, encKey) = (key[0 ..< bothKeyLen], key[bothKeyLen ..< key.count])
             return try aesCbcHmacSha2Decrypt(

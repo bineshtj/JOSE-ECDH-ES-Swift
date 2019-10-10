@@ -8,7 +8,7 @@
 import CommonCrypto
 import Foundation
 
-enum Hash: String {
+enum JWAHash: String {
     case SHA256 = "SHA-256"
     case SHA384 = "SHA-384"
     case SHA512 = "SHA-512"

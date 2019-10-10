@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import JOSESwift
+//import JOSESwift
 
 public struct EcdhEsJwe: JSONWebEncryption {
     internal static var encryptor: JWEEncryptor = EcdhEsEncryptor()

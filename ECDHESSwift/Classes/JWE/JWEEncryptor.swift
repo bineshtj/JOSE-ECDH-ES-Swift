@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import JOSESwift
+//import JOSESwift
 
 public protocol JWEEncryptor {
     func encrypt(

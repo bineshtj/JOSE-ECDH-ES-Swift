@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import JOSESwift
+//import JOSESwift
 
 class EcdhEsEncryptor: JWEEncryptor {
     internal var keyAgreementCompute: (

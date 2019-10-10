@@ -5,7 +5,7 @@
 //  Created by MFantcy on 2019/4/16.
 //
 
-import CryptoSwift
+//import CryptoSwift
 import Foundation
 
 func aesGcmEncrypt(plaintext: Data, key: Data, iv: Data, tagLen: Int, aad: Data) throws -> (ciphertext: Data, tag: Data) {

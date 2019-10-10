@@ -23,7 +23,7 @@ import Foundation
  - Returns: Derived Keying Material
  **/
 func concatKDF(
-    _ hash: Hash,
+    _ hash: JWAHash,
     _ z: Data,
     _ keyDataLen: Int,
     _ algorithmID: Data,

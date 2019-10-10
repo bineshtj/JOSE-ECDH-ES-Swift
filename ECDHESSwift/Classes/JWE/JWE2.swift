@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import JOSESwift
+//import JOSESwift
 
 public protocol JSONWebEncryption {
     var header: JSONWebEncryptionHeader { get }

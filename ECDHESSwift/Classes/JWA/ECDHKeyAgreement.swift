@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import JOSESwift
+//import JOSESwift
 
 func ecdhKeyAgreementCompute(
     alg: EcdhEsAlgorithm,
@@ -29,5 +29,5 @@ func ecdhKeyAgreementCompute(
     let partyUInfo = prefixedBigEndenLen(from: apu)
     let partyVInfo = prefixedBigEndenLen(from: apv)
     let suppPubInfo = intToData(value: UInt32(keyDataLen).bigEndian)
-    return try concatKDF(Hash.SHA256, z, keyDataLen, algorithmID, partyUInfo, partyVInfo, suppPubInfo)
+    return try concatKDF(JWAHash.SHA256, z, keyDataLen, algorithmID, partyUInfo, partyVInfo, suppPubInfo)
 }

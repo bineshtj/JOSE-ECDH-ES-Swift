@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import JOSESwift
+//import JOSESwift
 
 public struct EcdhEsJweHeader: JSONWebEncryptionHeader {
     private var jsonData: Data
