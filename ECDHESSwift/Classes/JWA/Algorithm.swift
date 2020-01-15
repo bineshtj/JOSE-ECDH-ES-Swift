@@ -72,7 +72,8 @@ enum EncryptionAlgorithm: String, KeySizeKnowable, CaseIterable {
     case A128CBC_HS256 = "A128CBC-HS256"
     case A192CBC_HS384 = "A192CBC-HS384"
     case A256CBC_HS512 = "A256CBC-HS512"
-
+    case A128CBC_HS256_KDF = "A128CBC-HS256_KDF"
+    
     var keyBitSize: Int {
         switch self {
         case .A128GCM:
@@ -85,6 +86,8 @@ enum EncryptionAlgorithm: String, KeySizeKnowable, CaseIterable {
             return 384
         case .A256CBC_HS512:
             return 512
+        case .A128CBC_HS256_KDF:
+            return 256
         }
     }
 
@@ -104,8 +107,8 @@ enum EncryptionAlgorithm: String, KeySizeKnowable, CaseIterable {
                 tagLen: tagLength,
                 aad: aad
             )
-        case .A128CBC_HS256, .A192CBC_HS384, .A256CBC_HS512:
-            let hash = self == .A128CBC_HS256 ? JWAHash.SHA256
+        case .A128CBC_HS256, .A192CBC_HS384, .A256CBC_HS512, .A128CBC_HS256_KDF:
+            let hash = (self == .A128CBC_HS256 || self == .A128CBC_HS256_KDF) ? JWAHash.SHA256
                 : (self == .A192CBC_HS384 ? JWAHash.SHA384 : JWAHash.SHA512)
             let bothKeyLen = key.count / 2
             let (macKey, encKey) = (key[0 ..< bothKeyLen], key[bothKeyLen ..< key.count])
@@ -132,8 +135,8 @@ enum EncryptionAlgorithm: String, KeySizeKnowable, CaseIterable {
         switch self {
         case .A128GCM, .A192GCM, .A256GCM:
             return try aesGcmDecrypt(ciphertext: ciphertext, key: key, iv: iv, tag: tag, aad: aad)
-        case .A128CBC_HS256, .A192CBC_HS384, .A256CBC_HS512:
-            let hash = self == .A128CBC_HS256 ? JWAHash.SHA256
+        case .A128CBC_HS256, .A192CBC_HS384, .A256CBC_HS512, .A128CBC_HS256_KDF:
+            let hash = (self == .A128CBC_HS256 || self == .A128CBC_HS256_KDF) ? JWAHash.SHA256
                 : (self == .A192CBC_HS384 ? JWAHash.SHA384 : JWAHash.SHA512)
             let bothKeyLen = key.count / 2
             let (macKey, encKey) = (key[0 ..< bothKeyLen], key[bothKeyLen ..< key.count])
@@ -154,14 +157,14 @@ enum EncryptionAlgorithm: String, KeySizeKnowable, CaseIterable {
         switch self {
         case .A128GCM, .A192GCM, .A256GCM:
             return 96
-        case .A128CBC_HS256, .A192CBC_HS384, .A256CBC_HS512:
+        case .A128CBC_HS256, .A192CBC_HS384, .A256CBC_HS512, .A128CBC_HS256_KDF:
             return 128
         }
     }
 
     var tagLength: Int {
         switch self {
-        case .A128GCM, .A192GCM, .A256GCM, .A128CBC_HS256:
+        case .A128GCM, .A192GCM, .A256GCM, .A128CBC_HS256, .A128CBC_HS256_KDF:
             return 16
         case .A192CBC_HS384:
             return 24

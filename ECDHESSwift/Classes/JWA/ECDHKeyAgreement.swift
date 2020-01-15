@@ -19,7 +19,11 @@ func ecdhKeyAgreementCompute(
     let z = try ecdhDeriveBits(ecPrivJwk: privKey, ecPubJwk: pubKey)
     var algId: Data, keyDataLen: Int
     if alg == .ECDH_ES {
-        algId = enc.rawValue.data(using: .utf8)!
+        if(enc == .A128CBC_HS256_KDF) {
+            algId = Data()
+        } else {
+            algId = enc.rawValue.data(using: .utf8)!
+        }
         keyDataLen = enc.keyBitSize
     } else {
         algId = alg.rawValue.data(using: .utf8)!

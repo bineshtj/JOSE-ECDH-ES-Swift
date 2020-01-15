@@ -39,12 +39,10 @@ class EcdhEsEncryptor: JWEEncryptor {
         header: JSONWebEncryptionHeader,
         options: [String: Any] = [:]
     ) throws -> (header: JSONWebEncryptionHeader, encryptedKey: Data, iv: Data, ciphertext: Data, tag: Data) {
-        let (alg, enc) = try guardAlgorithms(header)
-
+        var (alg, enc) = try guardAlgorithms(header)
         guard let staticPubKey = key as? ECPublicKey else {
             throw ECDHEESError.invalidJWK(reason: "key must be an ECPublicKey")
         }
-
         var ephemeralKeyPair: ECKeyPair
         if let eKeyPair = options["ephemeralKeyPair"] as? ECKeyPair {
             ephemeralKeyPair = eKeyPair
@@ -54,8 +52,10 @@ class EcdhEsEncryptor: JWEEncryptor {
 
         let apu = Data(base64Encoded: header.apu ?? "") ?? Data()
         let apv = Data(base64Encoded: header.apv ?? "") ?? Data()
-
         let kek = try keyAgreementCompute(alg, enc, ephemeralKeyPair.getPrivate(), staticPubKey, apu, apv)
+        
+        let newHeader = try replaceKDFParam(header: header)
+        (alg, enc) = try guardAlgorithms(newHeader)
         var cek: Data, encryptedKey: Data
         if let keyWrapAlgorithm = alg.keyWrapAlgorithm {
             if let injectedKey = options["key"] as? Data {
@@ -70,28 +70,24 @@ class EcdhEsEncryptor: JWEEncryptor {
         }
 
         let iv = options["iv"] as? Data ?? getRandomBytes(enc.ivBitSize / 8)
-
         var dataToEnc = plaintext
-        if header["zip"] != nil {
+        if newHeader["zip"] != nil {
             guard
-                let zip = header["zip"] as? String,
+                let zip = newHeader["zip"] as? String,
                 let zipAlg = JSONWebEncryptionCompressionAlgorithm(rawValue: zip) else {
-                throw ECDHEESError.unknownOrUnsupportedCompressionAlgorithm(reason: header["zip"] as? String ?? "non String")
+                throw ECDHEESError.unknownOrUnsupportedCompressionAlgorithm(reason: newHeader["zip"] as? String ?? "non String")
             }
             dataToEnc = try zipAlg.compress(plaintext)
         }
-
-        var resHeader = try EcdhEsJweHeader(cloneFrom: header)
-        if header.epk == nil || !ephemeralKeyPair.getPrivate().isCorrespondWith(header.epk!) {
+        var resHeader = try EcdhEsJweHeader(cloneFrom: newHeader)
+        if newHeader.epk == nil || !ephemeralKeyPair.getPrivate().isCorrespondWith(newHeader.epk!) {
             resHeader.epk = ephemeralKeyPair.getPublic()
         }
-
         var aad = resHeader.jsonSerializedData().base64URLEncodedData()
         if let extAad = options["aad"] as? Data {
             aad += ".".data(using: .ascii)! + extAad
         }
         aad += options["aad"] as? Data ?? Data()
-
         let (ciphertext, tag) = try enc.encrypt(plaintext: dataToEnc, key: cek, iv: iv, aad: aad)
 
         return (resHeader, encryptedKey, iv, ciphertext, tag)
@@ -142,5 +138,19 @@ class EcdhEsEncryptor: JWEEncryptor {
         }
 
         return ciphertext
+    }
+    
+    func replaceKDFParam(header:JSONWebEncryptionHeader) throws -> JSONWebEncryptionHeader {
+        var params = header.allParameters()
+        if(header.enc == "A128CBC-HS256_KDF") {
+            params["enc"] = "A128CBC-HS256"
+            if(header.alg == "ECDH-ES") {
+                params["alg"] = "dir"
+            }
+            if let _ = header.apv {
+                params.removeValue(forKey: "apv")
+            }
+        }
+        return try EcdhEsJweHeader(parameters: params)
     }
 }
