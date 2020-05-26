@@ -144,9 +144,6 @@ class EcdhEsEncryptor: JWEEncryptor {
         var params = header.allParameters()
         if(header.enc == "A128CBC-HS256_KDF") {
             params["enc"] = "A128CBC-HS256"
-            if(header.alg == "ECDH-ES") {
-                params["alg"] = "dir"
-            }
             if let _ = header.apv {
                 params.removeValue(forKey: "apv")
             }
